@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { usePathname, useSearchParams } from "next/navigation";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { dark, light } from "@clerk/themes";
+import { dark } from "@clerk/themes";
 
 // 定义组件的Props类型
 interface IProps {
@@ -62,7 +62,7 @@ const Header: FC<IProps> = () => {
           <SignedIn>
             <UserButton
               appearance={{
-                baseTheme: theme === "light" ? light : dark,
+                baseTheme: theme === "light" ? undefined : dark,
               }}
               userProfileUrl="/dashboard?tab=profile"
             />

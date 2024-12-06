@@ -4,7 +4,7 @@
  * @Author: pyq
  * @Date: 2024-11-29 16:42:58
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-05 21:34:50
+ * @LastEditTime: 2024-12-06 10:11:16
  */
 "use client"; // 这行代码告诉 Next.js 该文件是客户端组件
 import { ReactNode, FC, memo, useState, useEffect } from "react";
@@ -16,7 +16,6 @@ interface IProps {
 
 const ThemeCom: FC<IProps> = ({ children }) => {
   const { theme } = useTheme();
-  console.log(theme);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
