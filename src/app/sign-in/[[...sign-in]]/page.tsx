@@ -4,17 +4,13 @@
  * @Author: pyq
  * @Date: 2024-12-05 22:53:53
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-05 23:03:40
+ * @LastEditTime: 2024-12-06 09:51:22
  */
 import { SignIn } from "@clerk/nextjs";
-import { ReactNode, FC, memo } from "react";
 
 // 定义组件的Props类型
-interface IProps {
-  children?: ReactNode;
-}
 
-const SigIn: FC<IProps> = () => {
+const SigIn = () => {
   return (
     <div className="SigIn flex justify-center items-center p-3">
       <SignIn />
@@ -22,4 +18,4 @@ const SigIn: FC<IProps> = () => {
   );
 };
 
-export default memo(SigIn);
+export default SigIn;
