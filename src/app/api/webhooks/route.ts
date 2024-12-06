@@ -4,7 +4,7 @@
  * @Author: pyq
  * @Date: 2024-12-06 11:52:25
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-06 11:54:30
+ * @LastEditTime: 2024-12-06 20:26:54
  */
 import { Webhook } from "svix";
 import { headers } from "next/headers";
@@ -70,5 +70,5 @@ export async function POST(req: Request) {
     console.log("userId:", evt.data.id);
   }
 
-  return new Response("Webhook received", { status: 200 });
+  return new Response("Webhook received1", { status: 200 });
 }
