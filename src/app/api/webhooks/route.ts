@@ -4,7 +4,7 @@
  * @Author: pyq
  * @Date: 2024-12-06 11:52:25
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-07 16:30:32
+ * @LastEditTime: 2024-12-07 18:05:58
  */
 import { Webhook } from "svix";
 import { headers } from "next/headers";
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   const wh = new Webhook(SIGNING_SECRET);
 
   // Get headers
-  const headerPayload = await headers();
+  const headerPayload = await headers(); // 使用 await
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
   const svix_signature = headerPayload.get("svix-signature");
