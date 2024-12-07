@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/webhooks.js": {
+      "timeout": 30
+    }
+  }
+}
