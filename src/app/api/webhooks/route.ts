@@ -4,15 +4,14 @@
  * @Author: pyq
  * @Date: 2024-12-06 11:52:25
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-07 11:59:33
+ * @LastEditTime: 2024-12-07 11:24:45
  */
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 
 export async function POST(req: Request) {
-  const SIGNING_SECRET = "whsec_wD3rFt9W/6y9ItqIzssOZP3DcH/cA5/m";
-  console.log("WEBHOOK_SECRET:", SIGNING_SECRET, process.env.WEBHOOK_SECRET);
+  const SIGNING_SECRET = process.env.SIGNING_SECRET;
 
   if (!SIGNING_SECRET) {
     throw new Error(
