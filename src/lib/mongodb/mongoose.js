@@ -1,29 +1,21 @@
-/*
- * @Descripttion: 
- * @version: 
- * @Author: pyq
- * @Date: 2024-12-07 13:58:02
- * @LastEditors: pyq
- * @LastEditTime: 2024-12-07 14:02:26
- */
+import mongoose from "mongoose";
 
-import mongoose from 'mongoose'
+let initialized = false;
 
-let initialized = false
+export async function connect() {
+  mongoose.set("strictQuery", true); // 启用 strictQuery 配置
 
-export  async function connect() {
-    mongoose.set('strictQuery', true)
-  if (initialized) return
+  if (initialized) return;
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI,{
-        dbName:"yq-blog",
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    console.log('Connected to MongoDB')
-    initialized = true
+    // 连接到 MongoDB，只传入必要的配置
+    await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: "yq-blog", // 指定数据库名
+    });
+
+    console.log("Connected to MongoDB");
+    initialized = true; // 确保连接只初始化一次
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error)
+    console.error("Error connecting to MongoDB:", error);
   }
 }
