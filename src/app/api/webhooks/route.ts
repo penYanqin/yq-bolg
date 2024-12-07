@@ -4,23 +4,24 @@
  * @Author: pyq
  * @Date: 2024-12-06 11:52:25
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-07 11:07:59
+ * @LastEditTime: 2024-12-07 11:59:33
  */
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 
 export async function POST(req: Request) {
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const SIGNING_SECRET = "whsec_wD3rFt9W/6y9ItqIzssOZP3DcH/cA5/m";
+  console.log("WEBHOOK_SECRET:", SIGNING_SECRET, process.env.WEBHOOK_SECRET);
 
-  if (!WEBHOOK_SECRET) {
+  if (!SIGNING_SECRET) {
     throw new Error(
-      "Error: Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
+      "Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local"
     );
   }
 
   // Create new Svix instance with secret
-  const wh = new Webhook(WEBHOOK_SECRET);
+  const wh = new Webhook(SIGNING_SECRET);
 
   // Get headers
   const headerPayload = await headers();

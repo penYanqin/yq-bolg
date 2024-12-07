@@ -4,7 +4,7 @@
  * @Author: pyq
  * @Date: 2024-11-29 15:03:43
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-05 23:49:14
+ * @LastEditTime: 2024-12-07 11:16:34
  */
 import type { Metadata } from "next";
 import localFont from "next/font/local";

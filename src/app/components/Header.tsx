@@ -20,7 +20,6 @@ const Header: FC<IProps> = () => {
   //   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const searchParams = useSearchParams();
-
   const handleSubmit = () => {
     console.log(searchParams);
   };
