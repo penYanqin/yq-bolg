@@ -4,7 +4,7 @@
  * @Author: pyq
  * @Date: 2024-11-29 15:03:43
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-07 16:16:20
+ * @LastEditTime: 2024-12-12 14:15:54
  */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -14,6 +14,7 @@ import { ThemeProvider } from "next-themes";
 import ThemeCom from "./components/ThemeCom";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeModeScript } from "flowbite-react";
+import FooterCom from "./components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -49,6 +50,7 @@ export default function RootLayout({
             <ThemeCom>
               <Header />
               {children}
+              <FooterCom />
             </ThemeCom>
           </ThemeProvider>
         </body>
