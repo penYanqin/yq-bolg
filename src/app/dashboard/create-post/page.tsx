@@ -4,11 +4,11 @@
  * @Author: pyq
  * @Date: 2024-12-10 19:55:11
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-12 12:28:41
+ * @LastEditTime: 2024-12-12 15:06:47
  */
 "use client";
 
-import { ReactNode, FC, memo, useState } from "react";
+import { memo, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
@@ -25,11 +25,8 @@ import {
 } from "firebase/storage";
 import { app } from "@/firebase";
 // 定义组件的Props类型
-interface IProps {
-  children?: ReactNode;
-}
 
-const CreatePostPage: FC<IProps> = () => {
+const CreatePostPage = () => {
   const { isSignedIn, user, isLoaded } = useUser();
 
   const [file, setFile] = useState<File | null>(null);
