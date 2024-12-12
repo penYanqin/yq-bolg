@@ -12,7 +12,7 @@ export default async function PostPage({ params }) {
     });
     const data = await result.json();
     post = data.posts[0];
-  } catch (error) {
+  } catch {
     post = { title: "Failed to load post" };
   }
   if (!post || !post.title === "Failed to load post") {
