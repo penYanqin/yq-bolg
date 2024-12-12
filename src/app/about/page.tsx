@@ -4,7 +4,7 @@
  * @Author: pyq
  * @Date: 2024-12-12 14:17:27
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-12 14:17:48
+ * @LastEditTime: 2024-12-12 14:20:53
  */
 export default function About() {
   return (
@@ -12,20 +12,20 @@ export default function About() {
       <div className="max-w-2xl mx-auto p-3 text-center">
         <div>
           <h1 className="text-3xl font font-semibold text-center my-7">
-            About Sahand&apos;s Blog
+            About pyq&apos;s Blog
           </h1>
           <div className="text-md text-gray-500 flex flex-col gap-6">
             <p>
-              Welcome to Sahand&apos;s Blog! Created by Sahand Ghavidel, this
-              blog serves as a personal platform to share his insights and ideas
-              with the world. Sahand is an enthusiastic developer who enjoys
-              writing about technology, coding, and a variety of related topics.
+              Welcome to pyq&apos;s Blog! Created by pyq Ghavidel, this blog
+              serves as a personal platform to share his insights and ideas with
+              the world. pyq is an enthusiastic developer who enjoys writing
+              about technology, coding, and a variety of related topics.
             </p>
 
             <p>
               On this blog, you&apos;ll discover weekly articles and tutorials
               covering a range of topics including web development, software
-              engineering, and programming languages. Sahand is continually
+              engineering, and programming languages. pyq is continually
               learning and exploring new technologies, so make sure to visit
               frequently for the latest updates!
             </p>
