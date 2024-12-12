@@ -9,7 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "strict": false, // 或 "noImplicitAny": false
+    "strict": true, // 或 "noImplicitAny": false
     "noImplicitAny": false, // 允许隐式 any 类型
     "esModuleInterop": true,
     "module": "esnext",
