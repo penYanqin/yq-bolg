@@ -8,6 +8,7 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { usePathname, useSearchParams } from "next/navigation";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { dark } from "@clerk/themes";
+import { useRouter } from "next/navigation";
 
 // 定义组件的Props类型
 interface IProps {
@@ -17,11 +18,15 @@ interface IProps {
 const Header: FC<IProps> = () => {
   const path = usePathname();
   const { theme, setTheme } = useTheme();
-  //   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const handleSubmit = () => {
-    console.log(searchParams);
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(searchParams);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    router.push(`/search?${searchQuery}`);
   };
 
   return (
