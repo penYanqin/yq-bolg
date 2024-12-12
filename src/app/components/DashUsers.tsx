@@ -1,20 +1,20 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: pyq
- * @Date: 2024-12-12 14:24:47
- * @LastEditors: pyq
- * @LastEditTime: 2024-12-12 14:43:55
- */
-"use client";
-
 import { Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { useUser } from "@clerk/nextjs";
+
+interface User {
+  _id: string;
+  createdAt: string;
+  profilePicture: string;
+  username: string;
+  email: string;
+  isAdmin: boolean;
+}
+
 export default function DashUsers() {
   const { user, isLoaded } = useUser();
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -33,7 +33,7 @@ export default function DashUsers() {
           setUsers(data.users);
         }
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
     };
     if (user?.publicMetadata?.isAdmin) {

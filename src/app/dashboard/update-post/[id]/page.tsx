@@ -21,11 +21,19 @@ import { useRouter, usePathname } from "next/navigation";
 
 export default function UpdatePost() {
   const { isSignedIn, user, isLoaded } = useUser();
-  const [file, setFile] = useState(null);
-  const [imageUploadProgress, setImageUploadProgress] = useState(null);
-  const [imageUploadError, setImageUploadError] = useState(null);
-  const [formData, setFormData] = useState({});
-  const [publishError, setPublishError] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUploadProgress, setImageUploadProgress] = useState<number | null>(
+    null
+  );
+  const [imageUploadError, setImageUploadError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "uncategorized",
+    content: "",
+    image: "",
+  });
+
+  const [publishError, setPublishError] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
   const postId = pathname.split("/").pop();
@@ -71,7 +79,7 @@ export default function UpdatePost() {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setImageUploadProgress(progress.toFixed(0));
+          setImageUploadProgress(Number(progress.toFixed(0)));
         },
         () => {
           setImageUploadError("Image upload failed");
@@ -102,7 +110,7 @@ export default function UpdatePost() {
         },
         body: JSON.stringify({
           ...formData,
-          userMongoId: user.publicMetadata.userMongoId,
+          userMongoId: user?.publicMetadata.userMongoId,
           postId: postId,
         }),
       });
@@ -160,9 +168,13 @@ export default function UpdatePost() {
           </div>
           <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
             <FileInput
-              type="file"
               accept="image/*"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => {
+                const files = e.target.files;
+                if (files && files.length > 0) {
+                  setFile(files[0]);
+                }
+              }}
             />
             <Button
               type="button"
@@ -170,7 +182,7 @@ export default function UpdatePost() {
               size="sm"
               outline
               onClick={handleUpdloadImage}
-              disabled={imageUploadProgress}
+              disabled={imageUploadProgress !== null}
             >
               {imageUploadProgress ? (
                 <div className="w-16 h-16">

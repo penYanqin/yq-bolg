@@ -4,11 +4,15 @@
  * @Author: pyq
  * @Date: 2024-12-12 12:48:33
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-12 12:51:30
+ * @LastEditTime: 2024-12-12 17:17:37
  */
 import PostCard from "./PostCard";
+interface Post {
+  _id: string;
+  // 根据实际情况添加其他字段
+}
 export default async function RecentPosts({ limit }) {
-  let posts = null;
+  let posts: Post[] = [];
   try {
     const result = await fetch(process.env.URL + "/api/post/get", {
       method: "POST",
@@ -16,7 +20,7 @@ export default async function RecentPosts({ limit }) {
       cache: "no-store",
     });
     const data = await result.json();
-    posts = data.posts;
+    posts = data.posts as Post[];
   } catch (error) {
     console.log("Error getting post:", error);
   }
