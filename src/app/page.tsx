@@ -20,6 +20,7 @@ export default async function Home() {
     });
     const data = await result.json();
     posts = data.posts;
+    console.log(posts);
   } catch (error) {
     console.log("Error getting post:", error);
   }

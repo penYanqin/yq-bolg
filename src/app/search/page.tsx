@@ -92,6 +92,8 @@ export default function Search() {
     const urlParams = new URLSearchParams(searchParams);
     urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
+    console.log(searchQuery);
+
     const res = await fetch("/api/post/get", {
       method: "POST",
       headers: {
