@@ -47,7 +47,7 @@ export default function UpdatePost() {
           setFormData(data.posts[0]);
         }
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
     };
     if (isSignedIn && user?.publicMetadata?.isAdmin) {
@@ -73,7 +73,7 @@ export default function UpdatePost() {
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setImageUploadProgress(progress.toFixed(0));
         },
-        (error) => {
+        () => {
           setImageUploadError("Image upload failed");
           setImageUploadProgress(null);
         },
@@ -115,7 +115,7 @@ export default function UpdatePost() {
         setPublishError(null);
         router.push(`/post/${data.slug}`);
       }
-    } catch (error) {
+    } catch {
       setPublishError("Something went wrong");
     }
   };
