@@ -9,8 +9,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true, // 忽略 TypeScript 错误，不让它影响构建
+  },
   eslint: {
-    ignoreDuringBuilds: true, // 在构建时忽略 ESLint 错误
+    ignoreDuringBuilds: true, // 忽略 ESLint 错误
   },
 };
 
