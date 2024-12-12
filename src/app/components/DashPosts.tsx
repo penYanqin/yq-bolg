@@ -11,11 +11,21 @@ interface IProps {
   children?: ReactNode;
 }
 
+// 定义Post的类型
+interface IPost {
+  _id: string;
+  updatedAt: string;
+  image: string;
+  title: string;
+  category: string;
+  slug: string;
+}
+
 const DashPosts: FC<IProps> = () => {
   const { user } = useUser();
   console.log("user", user);
 
-  const [userPosts, setUserPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState<IPost[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
 
@@ -35,7 +45,7 @@ const DashPosts: FC<IProps> = () => {
         console.log(data);
 
         if (res.ok) {
-          setUserPosts(data.posts);
+          setUserPosts(data.posts as IPost[]);
         }
       } catch (error) {
         console.log(error);
@@ -70,7 +80,7 @@ const DashPosts: FC<IProps> = () => {
         console.log(data.message);
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 
@@ -97,53 +107,52 @@ const DashPosts: FC<IProps> = () => {
                 <span>Edit</span>
               </Table.HeadCell>
             </Table.Head>
-            {userPosts &&
-              userPosts.map((post) => (
-                <Table.Body className="divide-y" key={post._id}>
-                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                    <Table.Cell>
-                      {new Date(post.updatedAt).toLocaleDateString()}
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Link href={`/post/${post.slug}`}>
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="w-20 h-10 object-cover bg-gray-500"
-                        />
-                      </Link>
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Link
-                        className="font-medium text-gray-900 dark:text-white"
-                        href={`/post/${post.slug}`}
-                      >
-                        {post.title}
-                      </Link>
-                    </Table.Cell>
-                    <Table.Cell>{post.category}</Table.Cell>
-                    <Table.Cell>
-                      <span
-                        className="font-medium text-red-500 hover:underline cursor-pointer"
-                        onClick={() => {
-                          setShowModal(true);
-                          setPostIdToDelete(post._id);
-                        }}
-                      >
-                        Delete
-                      </span>
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Link
-                        className="text-teal-500 hover:underline"
-                        href={`/dashboard/update-post/${post._id}`}
-                      >
-                        <span>Edit</span>
-                      </Link>
-                    </Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
+            {userPosts.map((post) => (
+              <Table.Body className="divide-y" key={post._id}>
+                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Cell>
+                    {new Date(post.updatedAt).toLocaleDateString()}
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Link href={`/post/${post.slug}`}>
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-20 h-10 object-cover bg-gray-500"
+                      />
+                    </Link>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Link
+                      className="font-medium text-gray-900 dark:text-white"
+                      href={`/post/${post.slug}`}
+                    >
+                      {post.title}
+                    </Link>
+                  </Table.Cell>
+                  <Table.Cell>{post.category}</Table.Cell>
+                  <Table.Cell>
+                    <span
+                      className="font-medium text-red-500 hover:underline cursor-pointer"
+                      onClick={() => {
+                        setShowModal(true);
+                        setPostIdToDelete(post._id);
+                      }}
+                    >
+                      Delete
+                    </span>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Link
+                      className="text-teal-500 hover:underline"
+                      href={`/dashboard/update-post/${post._id}`}
+                    >
+                      <span>Edit</span>
+                    </Link>
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            ))}
           </Table>
         </>
       ) : (
