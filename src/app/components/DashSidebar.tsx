@@ -14,15 +14,6 @@ import { SignOutButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
-interface IPost {
-  _id: string;
-  updatedAt: string;
-  image: string;
-  title: string;
-  category: string;
-  slug: string;
-}
-
 export default function DashSidebar() {
   const [tab, setTab] = useState("");
   const searchParams = useSearchParams();
