@@ -30,11 +30,13 @@ export default function DashSidebar() {
     return null;
   }
 
+  const isAdmin = user?.publicMetadata?.isAdmin ?? false;
+
   return (
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-1">
-          {user?.publicMetadata?.isAdmin && (
+          {isAdmin && (
             <Link href="/dashboard?tab=dash">
               <Sidebar.Item
                 active={tab === "dash" || !tab}
@@ -49,14 +51,14 @@ export default function DashSidebar() {
             <Sidebar.Item
               active={tab === "profile"}
               icon={HiUser}
-              label={user?.publicMetadata?.isAdmin ? "Admin" : "User"}
+              label={isAdmin ? "Admin" : "User"}
               labelColor="dark"
               as="div"
             >
               Profile
             </Sidebar.Item>
           </Link>
-          {user?.publicMetadata?.isAdmin && (
+          {isAdmin && (
             <Link href="/dashboard?tab=posts">
               <Sidebar.Item
                 active={tab === "posts"}
@@ -67,7 +69,7 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
-          {user?.publicMetadata?.isAdmin && (
+          {isAdmin && (
             <Link href="/dashboard?tab=users">
               <Sidebar.Item
                 active={tab === "users"}
