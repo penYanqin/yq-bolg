@@ -1,18 +1,8 @@
 import CallToAction from "@/app/components/CallToAction";
+import RecentPosts from "@/app/components/RecentPosts";
 import { Button } from "flowbite-react";
 import Link from "next/link";
-import RecentPosts from "@/app/components/RecentPosts";
-import { FC, memo, ReactNode } from "react";
-interface params {
-  slug: string;
-}
-
-interface IProps {
-  children?: ReactNode;
-  params: params;
-}
-
-const PostPage: FC<IProps> = async ({ params }) => {
+export default async function PostPage({ params }) {
   let post = null;
   try {
     const result = await fetch(process.env.URL + "/api/post/get", {
@@ -22,7 +12,7 @@ const PostPage: FC<IProps> = async ({ params }) => {
     });
     const data = await result.json();
     post = data.posts[0];
-  } catch {
+  } catch (error) {
     post = { title: "Failed to load post" };
   }
   if (!post || !post.title === "Failed to load post") {
@@ -68,6 +58,4 @@ const PostPage: FC<IProps> = async ({ params }) => {
       <RecentPosts limit={3} />
     </main>
   );
-};
-
-export default memo(PostPage);
+}

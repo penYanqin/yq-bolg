@@ -38,7 +38,7 @@ const DashPosts: FC<IProps> = () => {
           setUserPosts(data.posts);
         }
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
     };
     if (user?.publicMetadata?.isAdmin) {

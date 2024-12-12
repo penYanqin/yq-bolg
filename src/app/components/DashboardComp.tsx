@@ -37,7 +37,7 @@ export default function DashboardComp() {
           setLastMonthUsers(data.lastMonthUsers);
         }
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
     };
     const fetchPosts = async () => {
@@ -58,7 +58,7 @@ export default function DashboardComp() {
           setLastMonthPosts(data.lastMonthPosts);
         }
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
     };
 
@@ -118,20 +118,26 @@ export default function DashboardComp() {
               <Table.HeadCell>Username</Table.HeadCell>
             </Table.Head>
             {users &&
-              users.map((user) => (
-                <Table.Body key={user._id} className="divide-y">
-                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                    <Table.Cell>
-                      <img
-                        src={user.profilePicture}
-                        alt="user"
-                        className="w-10 h-10 rounded-full bg-gray-500"
-                      />
-                    </Table.Cell>
-                    <Table.Cell>{user.username}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
+              users.map(
+                (user: {
+                  _id: number;
+                  username: string;
+                  profilePicture: string;
+                }) => (
+                  <Table.Body key={user._id} className="divide-y">
+                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                      <Table.Cell>
+                        <img
+                          src={user.profilePicture}
+                          alt="user"
+                          className="w-10 h-10 rounded-full bg-gray-500"
+                        />
+                      </Table.Cell>
+                      <Table.Cell>{user.username}</Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                )
+              )}
           </Table>
         </div>
 
@@ -149,21 +155,28 @@ export default function DashboardComp() {
               <Table.HeadCell>Category</Table.HeadCell>
             </Table.Head>
             {posts &&
-              posts.map((post) => (
-                <Table.Body key={post._id} className="divide-y">
-                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                    <Table.Cell>
-                      <img
-                        src={post.image}
-                        alt="user"
-                        className="w-14 h-10 rounded-md bg-gray-500"
-                      />
-                    </Table.Cell>
-                    <Table.Cell className="w-96">{post.title}</Table.Cell>
-                    <Table.Cell className="w-5">{post.category}</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              ))}
+              posts.map(
+                (post: {
+                  _id: number;
+                  image: string;
+                  title: string;
+                  category: string;
+                }) => (
+                  <Table.Body key={post?._id} className="divide-y">
+                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                      <Table.Cell>
+                        <img
+                          src={post?.image}
+                          alt="user"
+                          className="w-14 h-10 rounded-md bg-gray-500"
+                        />
+                      </Table.Cell>
+                      <Table.Cell className="w-96">{post?.title}</Table.Cell>
+                      <Table.Cell className="w-5">{post?.category}</Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                )
+              )}
           </Table>
         </div>
       </div>
