@@ -4,6 +4,12 @@ import { Button, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import PostCard from "../components/PostCard";
+
+interface Post {
+  _id: string;
+  // 其他字段根据实际情况添加
+}
+
 export default function Search() {
   const [sidebarData, setSidebarData] = useState({
     searchTerm: "",
@@ -11,24 +17,27 @@ export default function Search() {
     category: "uncategorized",
   });
 
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
+
   useEffect(() => {
     const urlParams = new URLSearchParams(searchParams);
     const searchTermFromUrl = urlParams.get("searchTerm");
     const sortFromUrl = urlParams.get("sort");
     const categoryFromUrl = urlParams.get("category");
+
     if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
       setSidebarData({
         ...sidebarData,
-        searchTerm: searchTermFromUrl,
-        sort: sortFromUrl,
-        category: categoryFromUrl,
+        searchTerm: searchTermFromUrl || "",
+        sort: sortFromUrl || "desc",
+        category: categoryFromUrl || "uncategorized",
       });
     }
+
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
@@ -46,13 +55,15 @@ export default function Search() {
           searchTerm: searchTermFromUrl,
         }),
       });
+
       if (!res.ok) {
         setLoading(false);
         return;
       }
+
       if (res.ok) {
         const data = await res.json();
-        setPosts(data.posts);
+        setPosts(data.posts as Post[]);
         setLoading(false);
         if (data.posts.length === 9) {
           setShowMore(true);
@@ -61,8 +72,10 @@ export default function Search() {
         }
       }
     };
+
     fetchPosts();
   }, [searchParams]);
+
   const handleChange = (e: { target: { id: string; value: string } }) => {
     if (e.target.id === "searchTerm") {
       setSidebarData({ ...sidebarData, searchTerm: e.target.value });
@@ -76,6 +89,7 @@ export default function Search() {
       setSidebarData({ ...sidebarData, category });
     }
   };
+
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (!sidebarData.searchTerm) {
@@ -88,11 +102,12 @@ export default function Search() {
     const searchQuery = urlParams.toString();
     router.push(`/search?${searchQuery}`);
   };
+
   const handleShowMore = async () => {
     const numberOfPosts = posts.length;
     const startIndex = numberOfPosts;
     const urlParams = new URLSearchParams(searchParams);
-    urlParams.set("startIndex", startIndex);
+    urlParams.set("startIndex", startIndex.toString());
     const searchQuery = urlParams.toString();
     console.log(searchQuery);
 
@@ -109,12 +124,14 @@ export default function Search() {
         startIndex,
       }),
     });
+
     if (!res.ok) {
       return;
     }
+
     if (res.ok) {
       const data = await res.json();
-      setPosts([...posts, ...data.posts]);
+      setPosts([...posts, ...(data.posts as Post[])]);
       if (data.posts.length === 9) {
         setShowMore(true);
       } else {
@@ -122,11 +139,12 @@ export default function Search() {
       }
     }
   };
+
   return (
     <div className="flex flex-col md:flex-row">
       <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
         <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
-          <div className="flex   items-center gap-2">
+          <div className="flex items-center gap-2">
             <label className="whitespace-nowrap font-semibold">
               Search Term:
             </label>
@@ -170,7 +188,7 @@ export default function Search() {
           {loading && <p className="text-xl text-gray-500">Loading...</p>}
           {!loading &&
             posts &&
-            posts.map((post) => <PostCard key={post._id} post={post} />)}
+            posts.map((post: Post) => <PostCard key={post._id} post={post} />)}
           {showMore && (
             <button
               onClick={handleShowMore}
