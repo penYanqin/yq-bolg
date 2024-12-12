@@ -4,7 +4,7 @@
  * @Author: pyq
  * @Date: 2024-12-07 13:58:02
  * @LastEditors: pyq
- * @LastEditTime: 2024-12-07 17:30:36
+ * @LastEditTime: 2024-12-12 13:58:24
  */
 import mongoose from "mongoose";
 
@@ -17,7 +17,13 @@ export async function connect() {
 
   try {
     // 连接到 MongoDB，只传入必要的配置
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI,{
+        useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 50000,
+  socketTimeoutMS: 45000,
+  connectTimeoutMS: 50000, // 连接超时设定
+    });
 
     console.log("Connected to MongoDB");
     initialized = true; // 确保连接只初始化一次

@@ -1,6 +1,7 @@
 import CallToAction from "@/app/components/CallToAction";
 import { Button } from "flowbite-react";
 import Link from "next/link";
+import RecentPosts from "@/app/components/RecentPosts";
 import { FC, memo, ReactNode } from "react";
 interface params {
   slug: string;
@@ -64,7 +65,7 @@ const PostPage: FC<IProps> = async ({ params }) => {
       <div className="max-w-4xl mx-auto w-full">
         <CallToAction />
       </div>
-      {/* <RecentPosts limit={3} /> */}
+      <RecentPosts limit={3} />
     </main>
   );
 };
